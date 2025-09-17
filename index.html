@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>간단 계산기</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    .calculator {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    input[type="text"] {
+      width: 100%;
+      height: 50px;
+      font-size: 24px;
+      text-align: right;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      pointer-events: none;
+      user-select: none;
+      background-color: #eee;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      font-size: 18px;
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    button.operator {
+      background-color: #ff9500;
+    }
+    button.equal {
+      background-color: #28a745;
+      grid-column: span 2;
+    }
+    button.clear {
+      background-color: #dc3545;
+      grid-column: span 2;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    button.operator:hover {
+      background-color: #cc7a00;
+    }
+    button.equal:hover {
+      background-color: #1e7e34;
+    }
+    button.clear:hover {
+      background-color: #a71d2a;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" disabled />
+    <div class="buttons">
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+      <button class="operator" onclick="appendOperator('/')">÷</button>
+
+      <button onclick="appendNumber('4')">4</button>
+      <button onclick="appendNumber('5')">5</button>
+      <button onclick="appendNumber('6')">6</button>
+      <button class="operator" onclick="appendOperator('*')">×</button>
+
+      <button onclick="appendNumber('1')">1</button>
+      <button onclick="appendNumber('2')">2</button>
+      <button onclick="appendNumber('3')">3</button>
+      <button class="operator" onclick="appendOperator('-')">−</button>
+
+      <button onclick="appendNumber('0')">0</button>
+      <button onclick="appendNumber('.')">.</button>
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="operator" onclick="appendOperator('+')">+</button>
+
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function appendNumber(num) {
+      if (display.value === "0" && num !== ".") {
+        display.value = num;
+      } else {
+        display.value += num;
+      }
+    }
+
+    function appendOperator(op) {
+      const lastChar = display.value.slice(-1);
+      if (["+", "-", "*", "/"].includes(lastChar)) {
+        display.value = display.value.slice(0, -1) + op;
+      } else if (display.value !== "") {
+        display.value += op;
+      }
+    }
+
+    function clearDisplay() {
+      display.value = "";
+    }
+
+    function calculate() {
+      try {
+        if (display.value === "") return;
+        // eval은 위험할 수 있지만, 여기서는 간단한 용도로 사용
+        let result = eval(display.value);
+        display.value = result;
+      } catch {
+        display.value = "오류";
+      }
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>색깔 있는 계산기</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .calculator {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 320px;
+    }
+    input[type="text"] {
+      width: 100%;
+      height: 60px;
+      font-size: 28px;
+      text-align: right;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      border: 2px solid #ddd;
+      border-radius: 15px;
+      pointer-events: none;
+      user-select: none;
+      background-color: #f7f9fc;
+      color: #333;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+    button {
+      font-size: 20px;
+      padding: 18px 0;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.1s ease, box-shadow 0.2s ease;
+    }
+    button:active {
+      transform: scale(0.95);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+
+    /* 숫자 버튼 (0~9, .) */
+    button.number {
+      background: linear-gradient(145deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    /* 연산자 버튼 (+, -, *, /) */
+    button.operator {
+      background: linear-gradient(145deg, #42e695 0%, #3bb2b8 100%);
+    }
+
+    /* = 버튼 */
+    button.equal {
+      background: linear-gradient(145deg, #f7971e 0%, #ffd200 100%);
+      color: #333;
+      grid-column: span 2;
+      font-weight: bold;
+      box-shadow: 0 6px 12px rgba(255, 214, 10, 0.7);
+    }
+
+    /* C 버튼 */
+    button.clear {
+      background: linear-gradient(
