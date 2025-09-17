@@ -1,0 +1,17 @@
+:root{ --cell:32px; --wall:#1f2937; --path:#f8fafc; --player:#ef4444; --goal:#10b981; }
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Apple SD Gothic Neo,'Malgun Gothic',sans-serif;background:#0f172a;color:#e6eef8;display:flex;align-items:center;justify-content:center}
+.wrap{max-width:900px;width:95%;display:grid;grid-template-columns:1fr 260px;gap:18px}
+.board{background:linear-gradient(180deg,#071027 0%, #09203a 100%);padding:14px;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,.6)}
+canvas{display:block;background:transparent;border-radius:6px}
+.side{background:#071b2b;padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+h1{margin:0 0 10px 0;font-size:18px}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+button{background:#0ea5a0;border:none;padding:8px 10px;border-radius:8px;color:white;cursor:pointer}
+button.secondary{background:#475569}
+.small{font-size:13px;color:#cbd5e1}
+.stats{display:flex;flex-direction:column;gap:6px}
+.controls{display:flex;flex-wrap:wrap;gap:8px}
+label{font-size:13px;color:#cbd5e1}
+input[type=range]{width:100%}
+.hint{font-size:13px;color:#9fb0c8}
+@media(max-width:800px){.wrap{grid-template-columns:1fr;}.side{order:2}}
